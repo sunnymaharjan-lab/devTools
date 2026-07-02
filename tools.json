@@ -1,0 +1,40 @@
+{
+  "navItems": [
+    { "name": "Home", "url": "index.html" },
+    { "name": "Tools", "children": [
+        { "name": "UBO Suite", "url": "tools/ubo.html" },
+        { "name": "Loan Dashboard", "url": "tools/amortization.html" }        
+    ]},
+    {"name":  "About Us", "url": "about.html"}
+  ],
+
+  "contactInfo": [
+        { "label": "Email", "value": "support@utils.kventure.org" },
+        { "label": "Address", "value": "Kathmandu, Nepal" },
+        { "label": "Phone", "value": "+977-9851133842" },
+        { "label": "Working Hours", "value": "Mon-Fri, 9am - 5pm" }
+  ],
+
+  "footer": {
+    "disclaimer": "Disclaimer: These tools are for educational and informational purposes. Consult a professional for financial decisions.",
+    "links": [
+      { "name": "About Us", "url": "about.html" },
+      { "name": "Contact Us", "url": "contact.html" }
+    ]
+  },
+
+  "tools": [
+    {
+      "title": "Enterprise UBO Governance Suite",
+      "description": "Calculate ultimate beneficial owners for companies with complex cross-holding structures.",
+      "link": "tools/ubo.html",
+      "icon": "building-2"
+    },
+    {
+      "title": "Loan Amortization Dashboard",
+      "description": "Generate dynamic loan schedules with scenario-based what-if analysis.",
+      "link": "tools/amortization.html",
+      "icon": "trending-up"
+    }
+  ]
+}

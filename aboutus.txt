@@ -1,0 +1,7 @@
+The UBO Governance Suite is a privacy-first tool designed to help enterprises, compliance officers, and legal professionals navigate complex corporate ownership structures.
+
+We believe that sensitive corporate data should never leave your local machine. This suite processes everything within your browser, ensuring complete confidentiality.
+
+Our mission is to provide transparent, efficient, and secure governance tools for the modern corporate environment.
+
+Are you looking for custom business automation tools designed for your unique workflows? We provide end-to-end development services. Contact us at <a href="mailto:utils@kventure.org"><strong>utils@kventure.org</strong></a> to learn how we can support your business.

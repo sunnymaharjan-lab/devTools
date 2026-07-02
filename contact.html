@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - DevTools Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-900 font-sans">
+
+    <!-- Navigation (Same as index.html) -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-xl font-bold text-blue-600">DevTools Hub</h1>
+            <div id="nav-container" class="flex space-x-6"></div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto px-4 py-12">
+        <h2 class="text-3xl font-bold mb-8 text-center">Get In Touch</h2>
+        
+        <div class="grid md:grid-cols-2 gap-8">
+            <!-- Contact Info -->
+            <div class="bg-white p-8 rounded-lg shadow-sm border border-gray-100">
+                <h3 class="text-xl font-bold mb-4">Contact Details</h3>
+                <div id="contact-details-container" class="space-y-2">
+                    <!-- JS will inject info here -->
+                </div>
+            </div>
+
+            <!-- Form -->
+            <form class="bg-white p-8 rounded-lg shadow-sm border border-gray-100">
+                <div class="mb-4">
+                    <label class="block text-sm font-medium mb-1">Name</label>
+                    <input type="text" class="w-full p-2 border rounded border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-sm font-medium mb-1">Message</label>
+                    <textarea class="w-full p-2 border rounded border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none h-32"></textarea>
+                </div>
+                <button class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">Send Message</button>
+            </form>
+        </div>
+    </main>
+
+    <script>
+        async function loadContactData() {
+            try {
+                const response = await fetch('tools.json');
+                const data = await response.json();
+
+                // Populate Contact Info
+                const container = document.getElementById('contact-details-container');
+                container.innerHTML = ''; // Clear loading text
+
+                data.contactInfo.forEach(item => {
+                    const p = document.createElement('p');
+                    p.className = "text-gray-700";
+                    p.innerHTML = `<span class="font-semibold">${item.label}:</span> ${item.value}`;
+                    container.appendChild(p);
+                });
+
+                // Simple Nav rendering (Same logic as landing page)
+                const navContainer = document.getElementById('nav-container');
+                data.navItems.forEach(item => {
+                    const navItem = document.createElement('div');
+                    navItem.className = "group relative cursor-pointer py-2 hover:text-blue-600";
+                    if (item.children) {
+                        navItem.innerHTML = `<span class="flex items-center">${item.name} ▾</span>`;
+                        // ... (Add your dropdown logic here if needed for this page)
+                    } else {
+                        navItem.innerHTML = `<a href="${item.url}" class="block">${item.name}</a>`;
+                    }
+                    navContainer.appendChild(navItem);
+                });
+            } catch (err) { console.error("Error loading config:", err); }
+        }
+        loadContactData();
+    </script>
+</body>
+</html>

@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5908583357149326"
+     crossorigin="anonymous"></script>
+
+    <title>Dynamic Loan Amortization Dashboard</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        :root {
+            --primary: #3b82f6; --primary-hover: #2563eb;
+            --bg: #f4f7f9; --card-bg: #ffffff;
+            --text-main: #0f172a; --text-muted: #64748b; --border: #e2e8f0;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background-color: var(--bg); 
+			color: var(--text-main); 
+			margin: 0; 
+			padding: 20px;
+        }
+
+        .container { max-width: 1400px; margin: 0 auto; }
+
+        .header {
+            display: flex; 
+			justify-content: 
+			space-between; 
+			align-items: center;
+            margin-bottom: 24px; 
+			padding-bottom: 16px; 
+			border-bottom: 2px solid var(--border);
+        }
+        .header h1 { margin: 0; font-size: 24px; font-weight: 700; color: #0f172a; }
+
+        .action-buttons button { width: auto; margin-left: 10px; background-color: #cbd5e1; color: #334155; }
+        .action-buttons button:hover { background-color: #94a3b8; color: white; }
+
+        .dashboard-grid { display: grid; grid-template-columns: 370px 1fr; gap: 24px; }
+        @media (max-width: 1024px) { .dashboard-grid { grid-template-columns: 1fr; } }
+
+        .card {
+            background-color: var(--card-bg); padding: 24px; border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05); border: 1px solid var(--border); margin-bottom: 24px;
+        }
+        .card h2 {
+            margin-top: 0; font-size: 16px; font-weight: 700; margin-bottom: 16px; color: var(--text-main);
+            border-bottom: 1px solid var(--border); padding-bottom: 8px;
+        }
+
+        /* Fixed Input Layout Styles */
+        .input-group { margin-bottom: 16px; }
+        .input-group label, .input-row label {
+            display: block; margin-bottom: 6px; font-weight: 500; font-size: 13px; color: #475569;
+        }
+        .input-group input, .input-group select, .input-row input, .input-row select {
+            width: 100%; padding: 10px; border: 1px solid var(--border); border-radius: 6px;
+            font-size: 14px; font-family: 'Inter', sans-serif; box-sizing: border-box;
+            background-color: #f8fafc; transition: border-color 0.2s;
+        }
+        .input-group input:focus, .input-group select:focus, .input-row input:focus, .input-row select:focus { 
+            outline: none; border-color: var(--primary); 
+        }
+        .input-row { display: flex; gap: 10px; margin-bottom: 16px;}
+        .input-row > div { flex: 1; min-width: 0; } 
+
+        .calc-btn {
+            width: 100%; background-color: var(--primary); color: white; border: none;
+            padding: 12px; border-radius: 6px; font-size: 15px; font-weight: 600;
+            cursor: pointer; transition: background-color 0.2s; font-family: 'Inter', sans-serif;
+        }
+        .calc-btn:hover { background-color: var(--primary-hover); }
+        .add-rule-btn { background-color: #10b981; margin-top: 22px;}
+        .add-rule-btn:hover { background-color: #059669; }
+
+        .rule-list { list-style: none; padding: 0; margin: 0 0 16px 0; font-size: 13px; }
+        .rule-list li {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 8px; background: #f8fafc; border: 1px solid var(--border);
+            border-radius: 4px; margin-bottom: 8px;
+        }
+        .delete-rule { color: #ef4444; cursor: pointer; font-weight: bold; border: none; background: none; }
+
+        /* Tabs */
+        .tabs { display: flex; gap: 8px; margin-bottom: 16px; border-bottom: 1px solid var(--border); padding-bottom: 8px;}
+        .tab-btn {
+            background: none; border: none; padding: 10px 16px; font-size: 15px; font-weight: 600;
+            color: var(--text-muted); cursor: pointer; border-radius: 6px 6px 0 0;
+            font-family: 'Inter', sans-serif; transition: all 0.2s;
+        }
+        .tab-btn.active { color: var(--primary); background-color: #eff6ff; border-bottom: 3px solid var(--primary); }
+        .tab-btn:hover:not(.active) { background-color: #f1f5f9; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        /* Summary Cards */
+        .summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 16px; margin-bottom: 24px; }
+        .summary-box {
+            padding: 16px; border-radius: 6px; background-color: #ffffff;
+            border: 1px solid var(--border); box-shadow: 0 1px 2px rgba(0,0,0,0.02); color: var(--text-main); 
+        }
+        .card-blue { border-left: 4px solid #3b82f6; }
+        .card-purple { border-left: 4px solid #8b5cf6; }
+        .card-green { border-left: 4px solid #10b981; }
+        .card-orange { border-left: 4px solid #f97316; }
+        .summary-box span { display: block; font-size: 11px; font-weight: 600; color: var(--text-muted); margin-bottom: 6px; text-transform: uppercase; }
+        .summary-box strong { display: block; font-size: clamp(16px, 1.5vw, 20px); font-weight: 700; word-break: break-word; line-height: 1.2; }
+
+        /* Tables */
+        .table-container { overflow-x: auto; max-height: 550px; border-radius: 6px; border: 1px solid var(--border); }
+        table { width: 100%; border-collapse: collapse; text-align: right; font-size: 13px; background-color: white; }
+        th, td { padding: 12px 16px; border-bottom: 1px solid var(--border); }
+        th { background-color: #f8fafc; font-weight: 600; color: var(--text-muted); position: sticky; top: 0; z-index: 10; text-transform: uppercase; font-size: 11px; }
+        tbody tr:nth-child(even) { background-color: #f8fafc; }
+        tbody tr:hover { background-color: #f1f5f9; }
+        .event-row { background-color: #ecfdf5 !important; border-left: 3px solid #10b981; }
+        .event-label { font-size: 10px; color: #10b981; display: block; font-weight: 600;}
+        .balloon-row { background-color: #fef2f2 !important; border-left: 3px solid #ef4444; }
+
+        .structure-builder {
+            display: none; padding: 16px; background: #f8fafc; border: 1px dashed var(--border); border-radius: 6px; margin-bottom: 16px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>Dynamic Loan Amortization Dashboard</h1>
+        <div class="action-buttons no-print">
+            <button class="calc-btn" onclick="exportToCSV()">Export Active Tab</button>
+            <button class="calc-btn" onclick="window.print()">Print Report</button>
+        </div>
+    </div>
+
+    <div class="dashboard-grid">
+        <!-- Input Sidebar -->
+        <div class="no-print">
+            <div class="card">
+                <h2>Baseline Parameters</h2>
+                <div class="input-row">
+                    <div>
+                        <label>Currency</label>
+                        <select id="currency">
+                            <option value="$">USD ($)</option>
+                            <option value="€">EUR (€)</option>
+                            <option value="K">MMK (K)</option>
+                            <option value="Rs" selected>NPR (Rs)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Principal Amount</label>
+                        <input type="number" id="principal" value="10000000">
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label>Payment Structure</label>
+                    <select id="paymentStructure" onchange="toggleStructureBuilder()">
+                        <option value="equated">Equated Monthly Installment (EMI)</option>
+                        <option value="ballooning">Step / Ballooning Payments</option>
+                    </select>
+                </div>
+
+                <!-- Ballooning Builder (Hidden by Default) -->
+                <div id="structureBuilder" class="structure-builder">
+                    <label style="font-size: 12px; font-weight: 700; margin-bottom: 8px; display: block;">Define Payment Periods</label>
+                    <ul class="rule-list" id="periodList"></ul>
+                    <div class="input-row">
+                        <div>
+                            <label>Start Mo.</label>
+                            <input type="number" id="pStart" value="1">
+                        </div>
+                        <div>
+                            <label>End Mo.</label>
+                            <input type="number" id="pEnd" value="60">
+                        </div>
+                        <div>
+                            <label>Amount</label>
+                            <input type="number" id="pAmount" value="20000">
+                        </div>
+                    </div>
+                    <button class="calc-btn" style="background-color: #64748b; padding: 8px; margin-top: 0;" onclick="addPeriod()">+ Add Period</button>
+                    <p style="font-size: 11px; color: var(--text-muted); margin-top: 12px; line-height: 1.4;">* Any balance remaining at the end of the tenure will be forced as a final balloon payment.</p>
+                </div>
+
+                <div class="input-row">
+                    <div>
+                        <label>Interest Rate (%)</label>
+                        <input type="number" id="rate" value="10.5" step="0.1">
+                    </div>
+                    <div>
+                        <label>Tenure (Years)</label>
+                        <input type="number" id="years" value="15">
+                    </div>
+                </div>
+                <div class="input-row">
+                    <div>
+                        <label>Net Income</label>
+                        <input type="number" id="netIncome" value="80000">
+                    </div>
+                    <div>
+                        <label>Base Inflation (%)</label>
+                        <input type="number" id="inflation" value="5" step="0.1">
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Base Extra Monthly Payment</label>
+                    <input type="number" id="baseExtra" value="0">
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Custom Scenario Events</h2>
+                <ul class="rule-list" id="ruleList"></ul>
+                
+                <div class="input-group">
+                    <label>Event Type</label>
+                    <select id="ruleType">
+                        <option value="lumpsum">Ad-Hoc Lump Sum</option>
+                        <option value="extra_payment">Change Extra Payment To</option>
+                        <option value="inflation">Change Inflation Rate To (%)</option>
+                    </select>
+                </div>
+                <div class="input-row">
+                    <div>
+                        <label>Starting Month</label>
+                        <input type="number" id="ruleMonth" value="12" min="1">
+                    </div>
+                    <div>
+                        <label>Value</label>
+                        <input type="number" id="ruleValue" value="50000">
+                    </div>
+                </div>
+                <button class="calc-btn add-rule-btn" onclick="addRule()">+ Add Event to Scenario</button>
+            </div>
+
+            <button class="calc-btn" onclick="generateDashboard()" style="height: 50px; font-size: 16px;">Run Complete Analysis</button>
+        </div>
+
+        <!-- Output Main Area -->
+        <div class="card" style="margin-bottom: 0;">
+            <div class="tabs no-print">
+                <button class="tab-btn active" onclick="switchTab('baseline')">Baseline Dashboard</button>
+                <button class="tab-btn" onclick="switchTab('custom')">Custom Scenario Dashboard</button>
+            </div>
+
+            <div id="tab-baseline" class="tab-content active">
+                <div class="summary-grid" id="baselineSummary"></div>
+                <h2>Amortization Schedule (Baseline)</h2>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="text-align: left;">Month</th>
+                                <th>Total Payment</th>
+                                <th>Principal</th>
+                                <th>Interest</th>
+                                <th>Remaining Balance</th>
+                                <th>Real Disp. Income</th>
+                            </tr>
+                        </thead>
+                        <tbody id="baselineBody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="tab-custom" class="tab-content">
+                <div class="summary-grid" id="customSummary"></div>
+                <h2>Amortization Schedule (Custom Scenario)</h2>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="text-align: left;">Month / Events</th>
+                                <th>Total Payment</th>
+                                <th>Principal</th>
+                                <th>Interest</th>
+                                <th>Remaining Balance</th>
+                                <th>Real Disp. Income</th>
+                            </tr>
+                        </thead>
+                        <tbody id="customBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="ad-container no-print" style="margin: 40px 0; text-align: center;">
+        <!-- google ads 2 -->
+        <ins class="adsbygoogle"
+            style="display:block"
+            data-ad-client="ca-pub-5908583357149326"
+            data-ad-slot="3222133081"
+            data-ad-format="auto"
+            data-full-width-responsive="true"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+    
+</div>
+
+<script>
+    let scenarioEvents = [];
+    let customPeriods = [];
+    let activeTab = 'baseline';
+    let exportDataBaseline = [];
+    let exportDataCustom = [];
+    let currentCurrency = "Rs";
+
+    const formatNumber = (num) => Number(num).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+    // --- Tab & UI Management ---
+	function switchTab(tabName) {
+		document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+		document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+		
+		document.getElementById(`tab-${tabName}`).classList.add('active');
+		event.currentTarget.classList.add('active');
+		
+		// Update the active tracking variable
+		activeTab = tabName; 
+	}
+	
+	// --- Export Function ---
+	function exportToCSV() {
+		// Select the correct data based on the active tab
+		const dataToExport = (activeTab === 'baseline') ? exportDataBaseline : exportDataCustom;
+		
+		if (dataToExport.length === 0) {
+			alert("Please run the analysis first.");
+			return;
+		}
+		
+		// Prepare CSV header
+		let csvContent = "data:text/csv;charset=utf-8,";
+		csvContent += "Month,Events/Notes,Total Payment,Principal,Interest,Remaining Balance,Real Disposable Income\n";
+		
+		// Process rows
+		dataToExport.forEach(row => {
+			// Handle notes/events safely
+			let notes = (row.notes && row.notes.length > 0) ? row.notes.join(" | ") : "";
+			
+			let rowString = [
+				row.month,
+				`"${notes}"`, // Quotes handle commas inside notes
+				row.payment.toFixed(2),
+				row.principal.toFixed(2),
+				row.interest.toFixed(2),
+				row.balance.toFixed(2),
+				row.realIncome.toFixed(2)
+			].join(",");
+			
+			csvContent += rowString + "\n";
+		});
+
+		// Trigger Download
+		const encodedUri = encodeURI(csvContent);
+		const link = document.createElement("a");
+		link.setAttribute("href", encodedUri);
+		link.setAttribute("download", `Amortization_${activeTab}_Schedule.csv`);
+		document.body.appendChild(link);
+		link.click();
+		document.body.removeChild(link);
+	}	
+	
+
+    function toggleStructureBuilder() {
+        const type = document.getElementById('paymentStructure').value;
+        document.getElementById('structureBuilder').style.display = (type === 'ballooning') ? 'block' : 'none';
+    }
+
+    // --- Custom Period Management (Ballooning) ---
+    function addPeriod() {
+        const start = parseInt(document.getElementById('pStart').value);
+        const end = parseInt(document.getElementById('pEnd').value);
+        const amount = parseFloat(document.getElementById('pAmount').value);
+        
+        if (start > 0 && end >= start && !isNaN(amount)) {
+            customPeriods.push({ id: Date.now(), start, end, amount });
+            renderPeriods();
+            // Auto increment UI for next input
+            document.getElementById('pStart').value = end + 1;
+            document.getElementById('pEnd').value = end + 60;
+        }
+    }
+
+    function removePeriod(id) {
+        customPeriods = customPeriods.filter(p => p.id !== id);
+        renderPeriods();
+    }
+
+    function renderPeriods() {
+        const list = document.getElementById('periodList');
+        list.innerHTML = '';
+        customPeriods.sort((a,b) => a.start - b.start).forEach(p => {
+            list.innerHTML += `
+                <li>
+                    <span>Months <strong>${p.start}-${p.end}</strong>: ${currentCurrency}${formatNumber(p.amount)}</span>
+                    <button class="delete-rule" onclick="removePeriod(${p.id})">✕</button>
+                </li>`;
+        });
+    }
+
+    // --- Rule Management (Scenarios) ---
+    function addRule() {
+        const type = document.getElementById('ruleType').value;
+        const month = parseInt(document.getElementById('ruleMonth').value);
+        const value = parseFloat(document.getElementById('ruleValue').value);
+        if (month > 0 && !isNaN(value)) {
+            scenarioEvents.push({ id: Date.now(), type, month, value });
+            renderRules();
+        }
+    }
+
+    function removeRule(id) {
+        scenarioEvents = scenarioEvents.filter(r => r.id !== id);
+        renderRules();
+    }
+
+    function renderRules() {
+        const list = document.getElementById('ruleList');
+        list.innerHTML = '';
+        const labels = { 'lumpsum': 'Lump Sum:', 'extra_payment': 'New Extra Pay:', 'inflation': 'New Inflation:' };
+        scenarioEvents.sort((a,b) => a.month - b.month).forEach(rule => {
+            list.innerHTML += `
+                <li>
+                    <span><strong>Mo. ${rule.month}:</strong> ${labels[rule.type]} ${rule.value}</span>
+                    <button class="delete-rule" onclick="removeRule(${rule.id})">✕</button>
+                </li>`;
+        });
+    }
+
+    // --- Core Engine ---
+    function generateAmortization(principal, annualRate, years, netIncome, baseExtra, baseInflation, structureType, eventsToApply = []) {
+        const monthlyRate = (annualRate / 100) / 12;
+        const scheduledMonths = years * 12;
+        
+        let standardEmi = 0;
+        if (structureType === 'equated') {
+            if (monthlyRate === 0) standardEmi = principal / scheduledMonths;
+            else standardEmi = (principal * monthlyRate * Math.pow(1 + monthlyRate, scheduledMonths)) / (Math.pow(1 + monthlyRate, scheduledMonths) - 1);
+        }
+
+        let schedule = [];
+        let remainingBalance = principal;
+        let totalInterest = 0;
+        let actualMonths = 0;
+        let pvOfPayments = 0;
+        let currentExtra = baseExtra;
+        let currentInflation = baseInflation;
+
+        for (let i = 1; i <= scheduledMonths; i++) {
+            if (remainingBalance <= 0) break;
+            actualMonths++;
+
+            let eventNotes = [];
+            let lumpSumThisMonth = 0;
+            let isBalloonPayment = false;
+
+            // 1. Process Events
+            eventsToApply.filter(e => e.month === i).forEach(event => {
+                if (event.type === 'lumpsum') { lumpSumThisMonth += event.value; eventNotes.push(`Lump Sum: ${event.value}`); }
+                if (event.type === 'extra_payment') { currentExtra = event.value; eventNotes.push(`Extra Pay: ${event.value}`); }
+                if (event.type === 'inflation') { currentInflation = event.value; eventNotes.push(`Inflation: ${event.value}%`); }
+            });
+
+            // 2. Determine Base Scheduled Payment
+            let basePayment = standardEmi;
+            if (structureType === 'ballooning') {
+                const period = customPeriods.find(p => i >= p.start && i <= p.end);
+                basePayment = period ? period.amount : 0; 
+            }
+
+            let monthlyInflationRate = (currentInflation / 100) / 12;
+            let interestPayment = remainingBalance * monthlyRate;
+            
+            // 3. Handle Ad-Hoc Lump Sums
+            if (lumpSumThisMonth > remainingBalance) lumpSumThisMonth = remainingBalance;
+            remainingBalance -= lumpSumThisMonth;
+            
+            if (remainingBalance <= 0) {
+                schedule.push({
+                    month: i, payment: lumpSumThisMonth, principal: lumpSumThisMonth, interest: 0,
+                    balance: 0, realIncome: netIncome, notes: eventNotes
+                });
+                pvOfPayments += lumpSumThisMonth / Math.pow(1 + monthlyInflationRate, i);
+                break;
+            }
+
+            // 4. Calculate Principal Payment
+            let principalPayment = basePayment - interestPayment + currentExtra;
+
+            // 5. Enforce Final Month Balloon Payoff
+            if (i === scheduledMonths && remainingBalance > 0) {
+                if (remainingBalance - principalPayment > 0) {
+                    principalPayment = remainingBalance;
+                    isBalloonPayment = true;
+                    eventNotes.push("Final Balloon Payoff Drop");
+                }
+            }
+
+            // Standard final payment boundary
+            if (principalPayment > remainingBalance) {
+                principalPayment = remainingBalance;
+            }
+
+            remainingBalance -= principalPayment;
+            totalInterest += interestPayment;
+            
+            const totalPaymentThisMonth = principalPayment + interestPayment + lumpSumThisMonth;
+            pvOfPayments += totalPaymentThisMonth / Math.pow(1 + monthlyInflationRate, i);
+
+            let year = Math.ceil(i / 12);
+            let inflationFactor = Math.pow(1 + (currentInflation / 100), year);
+            let realDisposableIncome = (netIncome - (totalPaymentThisMonth - lumpSumThisMonth)) / inflationFactor;
+
+            schedule.push({
+                month: i,
+                payment: totalPaymentThisMonth,
+                principal: principalPayment + lumpSumThisMonth,
+                interest: interestPayment,
+                balance: remainingBalance, // Allow negative principal to increase balance correctly
+                realIncome: realDisposableIncome,
+                notes: eventNotes,
+                isBalloon: isBalloonPayment
+            });
+        }
+
+        return { standardEmi, totalInterest, actualMonths, pvOfPayments, schedule, structureType };
+    }
+
+    // --- UI Rendering ---
+    function generateDashboard() {
+        currentCurrency = document.getElementById('currency').value;
+        const p = parseFloat(document.getElementById('principal').value) || 0;
+        const r = parseFloat(document.getElementById('rate').value) || 0;
+        const y = parseFloat(document.getElementById('years').value) || 0;
+        const income = parseFloat(document.getElementById('netIncome').value) || 0;
+        const inflation = parseFloat(document.getElementById('inflation').value) || 0;
+        const baseExtra = parseFloat(document.getElementById('baseExtra').value) || 0;
+        const structType = document.getElementById('paymentStructure').value;
+
+        const baseline = generateAmortization(p, r, y, income, baseExtra, inflation, structType, []);
+        const custom = generateAmortization(p, r, y, income, baseExtra, inflation, structType, scenarioEvents);
+
+        exportDataBaseline = baseline.schedule;
+        exportDataCustom = custom.schedule;
+
+        renderSummary('baselineSummary', baseline, baseline);
+        renderSummary('customSummary', custom, baseline);
+
+        renderTable('baselineBody', baseline.schedule);
+        renderTable('customBody', custom.schedule);
+    }
+
+    function renderSummary(elementId, data, baselineData) {
+        const interestSaved = Math.max(0, baselineData.totalInterest - data.totalInterest);
+        const monthsSaved = baselineData.actualMonths - data.actualMonths;
+        
+        let paymentText = data.structureType === 'ballooning' ? 'Custom Structure' : `${currentCurrency}${formatNumber(data.standardEmi)}`;
+
+        let savedHtml = '';
+        if (elementId === 'customSummary') {
+            savedHtml = `
+                <div class="summary-box card-green">
+                    <span>Interest Saved vs Baseline</span>
+                    <strong>${currentCurrency}${formatNumber(interestSaved)}</strong>
+                </div>
+                <div class="summary-box card-blue">
+                    <span>Time Saved vs Baseline</span>
+                    <strong>${monthsSaved} Months</strong>
+                </div>
+            `;
+        }
+
+        document.getElementById(elementId).innerHTML = `
+            <div class="summary-box card-blue">
+                <span>Base Schedule</span>
+                <strong>${paymentText}</strong>
+            </div>
+            <div class="summary-box card-purple">
+                <span>Total Interest Paid</span>
+                <strong>${currentCurrency}${formatNumber(data.totalInterest)}</strong>
+            </div>
+            <div class="summary-box card-orange">
+                <span>PV of Future Payments</span>
+                <strong>${currentCurrency}${formatNumber(data.pvOfPayments)}</strong>
+            </div>
+            ${savedHtml}
+        `;
+    }
+
+    function renderTable(elementId, schedule) {
+        let rows = "";
+        schedule.forEach(row => {
+            let rowClass = row.isBalloon ? 'class="balloon-row"' : (row.notes && row.notes.length > 0 ? 'class="event-row"' : '');
+            let notesHtml = '';
+            if (row.notes && row.notes.length > 0) {
+                row.notes.forEach(note => {
+                    let color = row.isBalloon ? '#ef4444' : '#10b981';
+                    notesHtml += `<span class="event-label" style="color:${color}">➤ ${note}</span>`;
+                });
+            }
+
+            rows += `
+                <tr ${rowClass}>
+                    <td style="text-align: left;">${row.month}${notesHtml}</td>
+                    <td>${currentCurrency}${formatNumber(row.payment)}</td>
+                    <td>${currentCurrency}${formatNumber(row.principal)}</td>
+                    <td>${currentCurrency}${formatNumber(row.interest)}</td>
+                    <td>${currentCurrency}${formatNumber(row.balance)}</td>
+                    <td>${currentCurrency}${formatNumber(row.realIncome)}</td>
+                </tr>
+            `;
+        });
+        document.getElementById(elementId).innerHTML = rows;
+    }
+
+    // Add Demo Data and Render
+    window.onload = () => {
+        customPeriods.push({ id: 1, start: 1, end: 60, amount: 20000 });
+        customPeriods.push({ id: 2, start: 61, end: 120, amount: 30000 });
+        renderPeriods();
+        generateDashboard();
+    };
+</script>
+
+</body>
+</html>

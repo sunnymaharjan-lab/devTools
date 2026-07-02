@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5908583357149326"
+     crossorigin="anonymous"></script>
+	
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false, // Turn this off to prevent auto-render of empty divs
+            theme: 'default'
+        });
+    </script>
+
+    <title>Enterprise UBO Governance Suite</title>
+	
+    <style>
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background-color: #f1f5f9;
+            color: #334155;
+            padding: 40px 20px;
+            margin: 0;
+        }
+        .container { max-width: 1000px; margin: 0 auto; }
+        h1, h2, h3 { color: #0f172a; margin-top: 0; }
+
+        /* Privacy Declaration Banner */
+        .privacy-banner {
+            background-color: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-left: 4px solid #16a34a;
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin-top: 25px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        .privacy-icon { font-size: 20px; margin-top: -2px; }
+        .privacy-content h4 { margin: 0 0 4px 0; color: #14532d; font-size: 15px; font-weight: 600; }
+        .privacy-content p { margin: 4; color: #166534; font-size: 13.5px; line-height: 1.5; }        
+        
+        .company-block {
+            background: white;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            border-left: 5px solid #3b82f6;
+        }
+        .company-block.root { border-left-color: #1e3a8a; }
+        
+        .grid-row {
+            display: grid;
+            grid-template-columns: 1fr 2fr 2fr 1.5fr auto;
+            gap: 12px;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+        label { font-size: 0.85rem; font-weight: 600; color: #64748b; }
+        input, select {
+            padding: 8px 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-add { background: #e2e8f0; color: #334155; }
+        .btn-add:hover:not(:disabled) { background: #cbd5e1; }
+        .btn-add:disabled { opacity: 0.6; cursor: not-allowed; }
+        .btn-submit { background: #3b82f6; color: white; }
+        .btn-submit:hover { background: #2563eb; }
+        .btn-del { background: #ef4444; color: white; padding: 8px; }
+        
+        .error-msg { color: #dc2626; font-size: 0.9rem; margin-top: 10px; font-weight: 500; display: none; }
+        .success-badge { display: inline-block; background: #dcfce7; color: #15803d; padding: 4px 12px; border-radius: 12px; font-size: 0.85rem; font-weight: 600; margin-top: 10px; }
+        
+        #calculateBtn { background: #10b981; color: white; font-size: 1.2rem; width: 100%; padding: 15px; margin-top: 20px; }
+        #calculateBtn:disabled { background: #cbd5e1; cursor: not-allowed; }
+        
+        .results-card { background: #0f172a; color: white; padding: 30px; border-radius: 8px; margin-top: 30px; display: none; }
+        .results-table { width: 100%; border-collapse: collapse; margin-top: 15px; margin-bottom: 20px; }
+        .results-table th { text-align: left; color: #94a3b8; border-bottom: 2px solid #334155; padding: 10px; }
+        .results-table td { padding: 12px 10px; border-bottom: 1px solid #334155; }
+        .ubo-tag { background: #059669; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; }
+        
+        .action-bar { display: flex; gap: 10px; margin-top: 15px; }
+        .btn-export { background: #475569; color: white; }
+        .btn-export:hover { background: #334155; }
+        .btn-print, .btn-reset {
+            padding: 10px 20px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+        .btn-print { background: #a855f7; color: white; }
+        .btn-print:hover { background: #9333ea; }
+
+        .btn-reset { background-color: #ef4444; color: white; }
+        .btn-reset:hover { background: #9333ea; }
+
+        /* Site Footer */
+        .site-footer {
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 50px;
+            border-top: 1px solid #e2e8f0;
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .site-footer a {
+            color: #16a34a; /* Matches your brand green */
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .site-footer a:hover {
+            text-decoration: underline;
+        }   
+
+		.ad-container {
+		    min-height: 100px; /* Prevents layout jumping */
+		    background-color: #f8fafc; /* Subtle grey to define the ad area */
+		    border-radius: 8px;
+		    padding: 10px;
+		}		
+
+		.info-section {
+		    display: grid;
+		    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+		    gap: 20px;
+		    margin: 40px 0;
+		    padding: 20px;
+		}
+		
+		.info-card {
+		    background: #f8fafc;
+		    padding: 25px;
+		    border-radius: 12px;
+		    border: 1px solid #e2e8f0;
+		    text-align: center;
+		    transition: transform 0.2s;
+		}
+		
+		.info-card:hover {
+		    transform: translateY(-5px);
+		    border-color: #16a34a;
+		}
+		
+		.info-card .icon {
+		    font-size: 40px;
+		    margin-bottom: 15px;
+		}
+		
+		.info-card h3 {
+		    margin-bottom: 10px;
+		    color: #1e293b;
+		}
+		
+		.info-card p {
+		    color: #64748b;
+		    font-size: 0.95rem;
+		    line-height: 1.5;
+		}		
+
+        /* Print Media Overrides */
+        @media print {
+            body { background: white; color: black; padding: 0; }
+            #calculateBtn, .action-bar, button, .btn-del, #setupBlock,.no-print { display: none !important; }
+            input, select { border: none !important; background: transparent !important; padding: 2px 0 !important; appearance: none; -webkit-appearance: none; pointer-events: none; color: black !important;}
+            .company-block { box-shadow: none !important; border: 1px solid #cbd5e1 !important; margin-bottom: 20px !important; page-break-inside: avoid; }
+            .results-card { display: block !important; background: white !important; color: black !important; padding: 0; margin-top: 40px; page-break-before: auto; }
+            .results-table th { color: #333 !important; border-bottom: 2px solid #333 !important; }
+            .results-table td { border-bottom: 1px solid #ddd !important; color: black !important; }
+            .ubo-tag { border: 1px solid #000; color: black !important; background: transparent !important; }
+            .action-buttons, .privacy-banner { display: none !important; }
+        }
+    </style>
+
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:ListName msdt:dt="string"></mso:ListName>
+<mso:Description0 msdt:dt="string"></mso:Description0>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+</head>
+<body>
+
+<div class="container">
+    <h1 class="no-print">Enterprise UBO Governance Suite</h1>
+    
+	<div class="company-block root" id="setupBlock">
+        <h3>Initial Setup</h3>
+        <div style="display: flex; flex-direction: column; gap: 15px;">
+            <div>
+                <label for="targetCompanyInput">Enter Target Company Name to Begin:</label>
+                <input type="text" id="targetCompanyInput" placeholder="e.g. Acme Global Holding Ltd" style="margin-top: 5px;">
+            </div>
+            <div>
+                <label for="thresholdInput">Minimum UBO Threshold Percentage (%):</label>
+                <input type="number" id="thresholdInput" value="20" min="0" max="100" step="any" style="margin-top: 5px; max-width: 150px;">
+            </div>
+            <button class="btn-submit" id="startWizardBtn" style="align-self: flex-start;">Initialize Wizard</button>
+        </div>
+    </div>
+
+    <div id="wizardWorkspace"></div>
+
+    <div class="company-block">
+        <h3>Ownership Structure Diagram</h3>
+        <div class="mermaid" id="ownership-chart">
+            </div>
+    </div>    
+
+    <button type="button" id="calculateBtn" class="no-print" disabled>Generate Ultimate Beneficial Owner Registry</button>
+
+    <div class="results-card" id="resultsSection">
+        <h2 style="border-bottom: 1px solid #334155; padding-bottom: 10px;">Ultimate Beneficial Owners (UBO) Registry</h2>
+        <p id="targetMetadata" style="color: #94a3b8; font-weight: bold; margin-bottom: 25px;"></p>
+		
+		<div id="intermediateCompaniesContainer"></div>
+		<h4 style="color: #94a3b8; margin-bottom: 10px; margin-top: 20px;">Qualifying Natural Persons (UBOs)</h4>
+        
+        <table class="results-table" id="uboTable">
+            <thead>
+                <tr>
+                    <th>Beneficiary Name</th>
+                    <th>Effective Combined Ownership %</th>
+                    <th>UBO Status Status</th>
+                </tr>
+            </thead>
+            <tbody id="resultsBody"></tbody>
+        </table>
+        
+        <div class="action-bar no-print">
+            <button type="button" class="btn-export" id="exportCsvBtn">Export Full Ledger to Excel (CSV)</button>
+            <button type="button" class="btn-export" id="exportJsonBtn">Export Full Ledger (JSON)</button>
+            <button type="button" class="btn-print" id="printBtn">Print Audit Trail & Registry</button>
+            <button onclick="resetApp()" class="btn-reset">Reset Application</button>
+        </div>
+    </div>
+	
+	<div class="ad-container no-print" style="margin: 40px 0; text-align: center;">
+
+		<!-- Google Ads -->
+		<ins class="adsbygoogle"
+		     style="display:block"
+		     data-ad-client="ca-pub-5908583357149326"
+		     data-ad-slot="2060793338"
+		     data-ad-format="auto"
+		     data-full-width-responsive="true"></ins>
+		<script>
+		     (adsbygoogle = window.adsbygoogle || []).push({});
+		</script>		
+	</div>
+
+    <section class="info-section no-print">
+        <div class="info-card">
+            <div class="icon">🔍</div>
+            <h3>What is a UBO?</h3>
+            <p>A <strong>Ultimate Beneficial Owner (UBO)</strong> is the natural person who ultimately owns or controls an entity. Identifying UBOs is a critical requirement for Anti-Money Laundering (AML) and KYC regulations.</p>
+        </div>
+        <div class="info-card">
+            <div class="icon">⚖️</div>
+            <h3>Corporate Compliance</h3>
+            <p>Transparency in corporate structures prevents illicit financial flows. Accurate reporting ensures your business meets international governance standards and maintains integrity with financial institutions.</p>
+        </div>
+        <div class="info-card">
+            <div class="icon">🛡️</div>
+            <h3>Our Approach</h3>
+            <p>We simplify complex ownership mapping. Our local-first processing ensures that your proprietary corporate data never touches a cloud server, keeping your sensitive registry information 100% private.</p>
+        </div>
+    </section>	
+	
+    <!-- Privacy & Data Security Declaration Banner -->
+    <div class="privacy-banner no-print">
+        <div class="privacy-icon">🔒</div>
+        <div class="privacy-content">
+            <h4>Data Privacy & Confidentiality Guarantee</h4>
+            <p>This governance suite operates entirely client-side. Any corporate structures, shareholder registries, or calculations entered here are processed strictly within your local browser session. <strong>No data is ever saved, stored, or transmitted to external servers.</strong> Closing or refreshing this window permanently flushes all active session data.</p>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <a href="about.html">About us</a> | 
+            <span>Em@il: utils@kventure.org</span> | 
+            <a href="#">Support us</a>
+        </div>
+    </footer>
+    
+</div>
+
+<script>
+let targetCompany = "";
+let globalGraph = {}; 
+let activeCompanies = new Set(); 
+let effectiveMultipliers = {}; 
+let finalCalculatedUbos = {}; 
+let UBO_THRESHOLD = 0.20; // Default fallback factor (20%)
+
+document.getElementById('startWizardBtn').addEventListener('click', () => {
+    const inputVal = document.getElementById('targetCompanyInput').value.trim();
+    const thresholdVal = parseFloat(document.getElementById('thresholdInput').value);
+    
+    if(!inputVal) return alert("Please specify a valid Target Company Name.");
+    if(isNaN(thresholdVal) || thresholdVal < 0 || thresholdVal > 100) return alert("Please enter a valid threshold percentage between 0 and 100.");
+    
+    targetCompany = inputVal;
+    UBO_THRESHOLD = thresholdVal / 100; // Convert e.g., 20 into 0.20
+    
+    activeCompanies.add(targetCompany);
+    effectiveMultipliers[targetCompany] = 1.0;
+    
+    // Update header dynamically to reflect user's rule configuration
+    document.querySelector('p').innerHTML = `Every corporate cap table must validate to exactly 100%. Sub-companies holding an effective interest $\\ge ${(UBO_THRESHOLD * 100).toFixed(2)}\\%$ will systematically generate new input layers below.`;
+    document.querySelector('#resultsSection p').innerText = `Aggregated calculations tracking multi-tier indirect relationships down to natural persons with ≥ ${(UBO_THRESHOLD * 100).toFixed(2)}% global stake.`;
+    document.querySelector('#uboTable th:nth-child(3)').innerText = `UBO Status (≥ ${(UBO_THRESHOLD * 100).toFixed(2)}%)`;
+
+    document.getElementById('setupBlock').style.display = 'none';
+    renderCompanyBlock(targetCompany, true);
+});
+
+function renderCompanyBlock(companyName, isRoot = false) {
+    if (document.getElementById(`block_${CSS.escape(companyName)}`)) return;
+
+    const workspace = document.getElementById('wizardWorkspace');
+    const block = document.createElement('div');
+    block.className = `company-block ${isRoot ? 'root' : ''}`;
+    block.id = `block_${companyName}`;
+    
+    const displayWeight = (effectiveMultipliers[companyName] * 100).toFixed(1);
+
+    block.innerHTML = `
+        <h3>Ownership Structure for: <span style="color:#2563eb;">${companyName}</span> 
+            ${!isRoot ? `<span style="font-size:0.9rem; font-weight:normal; color:#64748b;">(Global Effective Weight: ${displayWeight}%)</span>` : ''}
+        </h3>
+		
+        <div class="grid-row">
+            <label>ID</label>
+            <label>Shareholder Type</label>
+            <label>Name / Entity</label>
+            <label>Direct Shareholding %</label>
+            <div></div>
+        </div>
+
+        <div class="rows-container" id="rows_${companyName}"></div>
+        
+        <div style="margin-top:15px; display:flex; gap:10px; align-items:center;" class="no-print">
+            <button type="button" class="btn-add" id="addBtn_${companyName}" onclick="addShareholderRow('${companyName}')">+ Add Shareholder</button>
+            <button type="button" class="btn-submit" onclick="validateAndProcessBlock('${companyName}')">Lock & Validate Cap Table</button>
+        </div>
+        
+        <div class="error-msg" id="error_${companyName}">Error: Total ownership allocation must equal exactly 100%.</div>
+        <div id="status_${companyName}"></div>
+    `;
+    
+    workspace.appendChild(block);
+    addShareholderRow(companyName);
+}
+
+function evaluateAddButtonStatus(companyName) {
+    const container = document.getElementById(`rows_${companyName}`);
+    const rows = container.getElementsByClassName('grid-row');
+    const addBtn = document.getElementById(`addBtn_${companyName}`);
+    
+    let currentTotal = 0;
+    for(let row of rows) {
+        const val = parseFloat(row.querySelector('.sh-stake').value);
+        if(!isNaN(val)) currentTotal += val;
+    }
+    
+    if (currentTotal >= 100) {
+        addBtn.disabled = true;
+        addBtn.innerText = "Cap limit reached (100%)";
+    } else {
+        addBtn.disabled = false;
+        addBtn.innerText = "+ Add Shareholder";
+    }
+}
+
+function addShareholderRow(companyName) {
+    const container = document.getElementById(`rows_${companyName}`);
+    const rowId = 'sh_' + Math.random().toString(36).substr(2, 9);
+    
+    const div = document.createElement('div');
+    div.className = 'grid-row';
+    div.id = rowId;
+    
+    div.innerHTML = `
+        <input type="text" class="sh-id" placeholder="e.g. 01" required>
+        <select class="sh-type" onchange="invalidateDownstream('${companyName}')">
+            <option value="Individual">Individual</option>
+            <option value="Company">Company</option>
+        </select>
+        <input type="text" class="sh-name" placeholder="Name" required oninput="invalidateDownstream('${companyName}')">
+        <input type="number" class="sh-stake" placeholder="0.00" min="0" max="100" step="any" required oninput="evaluateAddButtonStatus('${companyName}'); invalidateDownstream('${companyName}')">
+        <button class="btn-del" onclick="removeRow('${companyName}', '${rowId}')">X</button>
+    `;
+    
+    container.appendChild(div);
+    evaluateAddButtonStatus(companyName);
+}
+
+function removeRow(companyName, rowId) {
+    document.getElementById(rowId).remove();
+    invalidateDownstream(companyName);
+    evaluateAddButtonStatus(companyName);
+}
+
+function invalidateDownstream(companyName) {
+    const errorDiv = document.getElementById(`error_${companyName}`);
+    if (errorDiv) errorDiv.style.display = 'none';
+    
+    const statusDiv = document.getElementById(`status_${companyName}`);
+    if (statusDiv) statusDiv.innerHTML = '';
+    
+    delete globalGraph[companyName];
+    rebuildWizardFlow();
+}
+
+function validateAndProcessBlock(companyName) {
+    const container = document.getElementById(`rows_${companyName}`);
+    const rows = container.getElementsByClassName('grid-row');
+    const errorDiv = document.getElementById(`error_${companyName}`);
+    const statusDiv = document.getElementById(`status_${companyName}`);
+    
+    let localSum = 0;
+    let localHolders = [];
+    
+    for (let row of rows) {
+        const id = row.querySelector('.sh-id').value.trim();
+        const type = row.querySelector('.sh-type').value;
+        const name = row.querySelector('.sh-name').value.trim();
+        const stake = parseFloat(row.querySelector('.sh-stake').value);
+        
+        if(!id || !name || isNaN(stake)) {
+            errorDiv.innerText = "Validation Error: All inputs must be filled.";
+            errorDiv.style.display = 'block';
+            return;
+        }
+        
+        localSum += stake;
+        localHolders.push({ id, type, name, stake: stake / 100 });
+    }
+    
+    if (Math.abs(localSum - 100) > 0.001) {
+        errorDiv.innerText = `Validation Error: Cap table sums to ${localSum.toFixed(2)}%. It must equal exactly 100%.`;
+        errorDiv.style.display = 'block';
+        return;
+    }
+    
+    errorDiv.style.display = 'none';
+    statusDiv.innerHTML = `<span class="success-badge">✓ Balanced & Locked</span>`;
+    
+    globalGraph[companyName] = localHolders;
+    rebuildWizardFlow();
+}
+
+function rebuildWizardFlow() {
+    const workingMultipliers = {};
+    workingMultipliers[targetCompany] = 1.0;
+    
+    const queue = [targetCompany];
+    const companiesToKeep = new Set([targetCompany]);
+    
+    while(queue.length > 0) {
+        const current = queue.shift();
+        const shareholders = globalGraph[current];
+        
+        if (!shareholders) continue;
+        
+        shareholders.forEach(sh => {
+            if (sh.type === 'Company') {
+                const calculatedIndirectStake = workingMultipliers[current] * sh.stake;
+                
+                if (calculatedIndirectStake >= UBO_THRESHOLD) {
+                    workingMultipliers[sh.name] = (workingMultipliers[sh.name] || 0) + calculatedIndirectStake;
+                    companiesToKeep.add(sh.name);
+                    if (!queue.includes(sh.name)) queue.push(sh.name);
+                }
+            }
+        });
+    }
+    
+    effectiveMultipliers = workingMultipliers;
+    
+    activeCompanies.forEach(comp => {
+        if (!companiesToKeep.has(comp)) {
+            const el = document.getElementById(`block_${comp}`);
+            if (el) el.remove();
+            delete globalGraph[comp];
+        }
+    });
+    
+    companiesToKeep.forEach(comp => {
+        if (!activeCompanies.has(comp)) renderCompanyBlock(comp, false);
+    });
+    
+    activeCompanies = companiesToKeep;
+    
+    let workflowComplete = true;
+    activeCompanies.forEach(comp => {
+        if (!globalGraph[comp]) workflowComplete = false;
+    });
+    
+    document.getElementById('calculateBtn').disabled = !workflowComplete;
+
+    try {
+            
+        setTimeout(() => {
+            updateChart(globalGraph);
+        }, 0);        
+
+    } catch (error) {
+        console.error("Diagram failed, but calculations are safe:", error);
+    }  
+
+}
+
+function resetApp() {
+    if (confirm("Are you sure you want to reset? All current data will be cleared.")) {
+        location.reload();
+    }
+}
+
+async function updateChart(graphData) {
+    const chartDiv = document.getElementById('ownership-chart');
+    
+    // 1. Validate data: If graph is empty, clear the chart and exit
+    if (!graphData || Object.keys(graphData).length === 0) {
+        chartDiv.innerHTML = "";
+        return;
+    }
+
+    // 2. Build the diagram string (Strict syntax: remove semicolons if they cause issues)
+    let diagram = "graph LR\n";
+    
+    Object.keys(graphData).forEach(compName => {
+        graphData[compName].forEach(sh => {
+            // Ensure no invalid characters in names
+            const safeCompName = compName.replace(/[^a-zA-Z0-9]/g, '_');
+            const safeShName = sh.name.replace(/[^a-zA-Z0-9]/g, '_');
+            diagram += `    ${safeCompName}["${compName}"]-->|${(sh.stake * 100).toFixed(0)}%|${safeShName}["${sh.name}"]\n`;
+        });
+    });
+
+    // 3. Render securely
+    try {
+        const { svg } = await mermaid.render('ownership-chart-svg', diagram);
+        chartDiv.innerHTML = svg;
+    } catch (e) {
+        console.error("Mermaid Render Error:", e);
+        chartDiv.innerHTML = "Diagram could not be generated.";
+    }
+}
+
+document.getElementById('calculateBtn').addEventListener('click', () => {
+    try {
+        finalCalculatedUbos = {};
+        
+        function trace(entity, currentMultiplier) {
+            const records = globalGraph[entity];
+            if (!records) return;
+            
+            records.forEach(sh => {
+                const effectiveStake = currentMultiplier * sh.stake;
+                if (sh.type === 'Individual') {
+                    finalCalculatedUbos[sh.name] = (finalCalculatedUbos[sh.name] || 0) + effectiveStake;
+                } else if (sh.type === 'Company') {
+                    if (effectiveMultipliers[sh.name] >= UBO_THRESHOLD) {
+                        trace(sh.name, effectiveStake);
+                    }
+                }
+            });
+        }
+        
+        // 1. Run the trace calculation
+        trace(targetCompany, 1.0);
+        
+        // 2. Setup the output UI
+        const tbody = document.getElementById('resultsBody');
+        tbody.innerHTML = '';
+        document.getElementById('targetMetadata').innerText = `Main Target Entity: ${targetCompany.toUpperCase()}`;
+        
+        // 3. Display Intermediate Companies
+        const intermediateContainer = document.getElementById('intermediateCompaniesContainer');
+        intermediateContainer.innerHTML = ''; 
+        
+        // Filter out the main target company to only show the intermediate holding companies
+        const intermediateCompanies = Object.entries(effectiveMultipliers).filter(([name]) => name !== targetCompany);
+        
+        if (intermediateCompanies.length > 0) {
+            let corpHTML = `<h4 style="color: #94a3b8; margin-bottom: 10px; margin-top: 0;">Qualifying Corporate Shareholders (≥ ${(UBO_THRESHOLD * 100).toFixed(2)}%)</h4>
+            <table class="results-table" style="margin-bottom: 30px;">
+                <thead>
+                    <tr>
+                        <th>Company Name</th>
+                        <th>Effective Combined Ownership %</th>
+                        <th>Entity Status</th>
+                    </tr>
+                </thead>
+                <tbody>`;
+                
+            intermediateCompanies.forEach(([name, stake]) => {
+                const pct = (stake * 100).toFixed(2);
+                corpHTML += `
+                    <tr>
+                        <td><strong>${name}</strong></td>
+                        <td>${pct}%</td>
+                        <td><span class="ubo-tag" style="background: #3b82f6;">Holding Company</span></td>
+                    </tr>`;
+            });
+            
+            corpHTML += `</tbody></table>`;
+            intermediateContainer.innerHTML = corpHTML;
+        }	
+        
+        // 4. Display Final UBOs (Natural Persons)
+        Object.entries(finalCalculatedUbos).forEach(([name, totalStake]) => {
+            const pct = (totalStake * 100).toFixed(2);
+            const criteriaPassed = totalStake >= UBO_THRESHOLD;
+            
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td><strong>${name}</strong></td>
+                <td>${pct}%</td>
+                <td>${criteriaPassed ? '<span class="ubo-tag">Qualified UBO</span>' : '<span style="color:#64748b;">Below Threshold</span>'}</td>
+            `;
+            tbody.appendChild(tr);
+        });
+
+    } catch (error) { 
+        // This runs ONLY if the code above crashes
+        console.error("Critical calculation error:", error);
+        alert("An error occurred during calculation. Check the browser console (Right-click -> Inspect -> Console) for details.");
+    } finally {
+        document.getElementById('resultsSection').style.display = 'block';
+        document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth' });
+    }
+        
+});
+
+// JSON Export: Bundles Full Company Topology + Computed UBO results
+document.getElementById('exportJsonBtn').addEventListener('click', () => {
+    const detailedStructure = {};
+    Object.keys(globalGraph).forEach(compName => {
+        detailedStructure[compName] = globalGraph[compName].map(sh => ({
+            id: sh.id,
+            type: sh.type,
+            name: sh.name,
+            directStakePercentage: (sh.stake * 100).toFixed(2),
+            globalEffectiveWeightPercentage: ((effectiveMultipliers[compName] || 0) * sh.stake * 100).toFixed(2)
+        }));
+    });
+
+    const exportPayload = {
+        targetCompany: targetCompany,
+        extractionTimestamp: new Date().toISOString(),
+        corporateCapTables: detailedStructure,
+        ultimateBeneficialOwners: Object.entries(finalCalculatedUbos).map(([name, stake]) => ({
+            name,
+            effectiveStakePercentage: (stake * 100).toFixed(2),
+            isUbo: stake >= UBO_THRESHOLD
+        }))
+    };
+    
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(exportPayload, null, 2));
+    const downloadAnchor = document.createElement('a');
+    downloadAnchor.setAttribute("href", dataStr);
+    downloadAnchor.setAttribute("download", `Full_UBO_Ledger_${targetCompany}.json`);
+    document.body.appendChild(downloadAnchor);
+    downloadAnchor.click();
+    downloadAnchor.remove();
+});
+
+// Excel CSV Export: Appends complete corporate tables, followed by a separate block for final UBOs
+document.getElementById('exportCsvBtn').addEventListener('click', () => {
+    let csvContent = "data:text/csv;charset=utf-8,";
+    
+    // Part A: Audit Trail - Intermediate Corporate Structures
+    csvContent += "=== CORPORATE STRUCTURE PATHS & CAP TABLES ===\n";
+    csvContent += "Parent Entity,Shareholder ID,Shareholder Type,Shareholder Name,Direct Stake %,Effective Path Weight %\n";
+    
+    Object.keys(globalGraph).forEach(compName => {
+        globalGraph[compName].forEach(sh => {
+            const directPct = (sh.stake * 100).toFixed(2);
+            const globalWeight = ((effectiveMultipliers[compName] || 0) * sh.stake * 100).toFixed(2);
+            csvContent += `"${compName}","${sh.id}","${sh.type}","${sh.name}","${directPct}%","${globalWeight}%"\n`;
+        });
+    });
+    
+    // Add spacer line breaks
+    csvContent += "\n\n";
+    
+    // Part B: Aggregated Consolidated Ultimate Beneficiaries
+    csvContent += "=== FINAL CONSOLIDATED ULTIMATE BENEFICIAL OWNERS (UBO) ===\n";
+    csvContent += "Beneficiary Name,Effective Aggregated Ownership %,Status Check\n";
+    
+    Object.entries(finalCalculatedUbos).forEach(([name, stake]) => {
+        const pct = (stake * 100).toFixed(2);
+        const status = stake >= UBO_THRESHOLD ? "Qualified UBO" : "Below Threshold";
+        csvContent += `"${name}","${pct}%","${status}"\n`;
+    });
+    
+    const encodedUri = encodeURI(csvContent);
+    const downloadAnchor = document.createElement('a');
+    downloadAnchor.setAttribute("href", encodedUri);
+    downloadAnchor.setAttribute("download", `Full_UBO_Ledger_${targetCompany}.csv`);
+    document.body.appendChild(downloadAnchor);
+    downloadAnchor.click();
+    downloadAnchor.remove();
+});
+
+// Print execution triggers custom printing stylesheet rules natively
+document.getElementById('printBtn').addEventListener('click', () => {
+    window.print();
+});
+</script>
+
+</body>
+</html>
