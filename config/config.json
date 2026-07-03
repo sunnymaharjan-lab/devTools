@@ -1,9 +1,13 @@
 {
   "navItems": [
     { "name": "Home", "url": "index.html" },
-    { "name": "Tools", "children": [
-        { "name": "UBO Suite", "url": "tools/ubo.html" },
-        { "name": "Loan Dashboard", "url": "tools/amortization.html" }        
+    { "name": "Utilities", "children": [
+        { "name": "UBO Suite", "url": "ubo.html" },
+        { "name": "Loan Amortization", "url": "amortization.html" },
+        { "name": "Image Compressor", "url": "image-compressor.html" },
+        { "name": "Docx Compressor", "url": "docx-compressor.html" },
+        { "name": "PDF Merger/Splitter", "url": "pdf-processor.html" }
+
     ]},
     {"name":  "About Us", "url": "about.html"}
   ],
@@ -27,14 +31,32 @@
     {
       "title": "Enterprise UBO Governance Suite",
       "description": "Calculate ultimate beneficial owners for companies with complex cross-holding structures.",
-      "link": "tools/ubo.html",
+      "link": "ubo.html",
       "icon": "building-2"
     },
     {
       "title": "Loan Amortization Dashboard",
       "description": "Generate dynamic loan schedules with scenario-based what-if analysis.",
-      "link": "tools/amortization.html",
+      "link": "amortization.html",
       "icon": "trending-up"
+    },
+    {
+      "title": "Image Compressor",
+      "description": "Compress images to reduce file size while maintaining quality.",
+      "link": "image-compressor.html",
+      "icon": "image"
+    },
+    {
+      "title": "Docx Compressor",
+      "description": "Reduce the size of DOCX files for easier sharing and storage.",
+      "link": "docx-compressor.html",
+      "icon": "file-text"
+    },
+    {
+      "title": "PDF Merger/Splitter",
+      "description": "Merge multiple PDF files into one or split a PDF into separate pages.",
+      "link": "pdf-processor.html",
+      "icon": "file"
     }
   ]
 }

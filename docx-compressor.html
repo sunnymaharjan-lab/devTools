@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Document (.docx) Compressor</title>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        :root {
+            --primary: #3b82f6; --primary-hover: #2563eb;
+            --bg: #f4f7f9; --card-bg: #ffffff;
+            --text-main: #0f172a; --text-muted: #64748b; --border: #e2e8f0;
+            --success: #10b981;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background-color: var(--bg); color: var(--text-main); margin: 0; padding: 20px;
+        }
+
+        .container { max-width: 800px; margin: 0 auto; }
+        .header { margin-bottom: 24px; padding-bottom: 16px; border-bottom: 2px solid var(--border); }
+        .header h1 { margin: 0; font-size: 24px; font-weight: 700; color: #0f172a; }
+        .header p { margin: 8px 0 0 0; font-size: 14px; color: var(--text-muted); }
+
+        .card {
+            background-color: var(--card-bg); padding: 32px; border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05); border: 1px solid var(--border);
+        }
+
+        .input-group { margin-bottom: 24px; }
+        .input-group label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 14px; }
+        
+        input[type="file"] {
+            display: block; width: 100%; padding: 16px; border: 2px dashed var(--border);
+            border-radius: 8px; background-color: #f8fafc; cursor: pointer;
+            font-family: 'Inter', sans-serif; font-size: 14px; box-sizing: border-box;
+        }
+
+        /* New File Info Box */
+        .file-info-box {
+            display: none; padding: 16px; background-color: #f0f9ff; 
+            border: 1px solid #bae6fd; border-radius: 6px; margin-bottom: 24px;
+        }
+        .file-info-box p { margin: 0 0 8px 0; font-size: 14px; color: #0369a1; }
+        .file-info-box p:last-child { margin: 0; }
+        .size-badge { font-weight: 700; font-size: 18px; color: #0284c7; }
+
+        /* Custom Slider */
+        .slider-container { display: flex; align-items: center; gap: 16px; margin-top: 12px; }
+        .slider-container span { font-size: 12px; color: var(--text-muted); font-weight: 600; text-transform: uppercase;}
+        input[type="range"] { flex: 1; cursor: pointer; }
+
+        .primary-btn {
+            width: 100%; background-color: var(--primary); color: white; border: none;
+            padding: 14px; border-radius: 6px; font-size: 16px; font-weight: 600;
+            cursor: pointer; transition: background-color 0.2s; font-family: 'Inter', sans-serif;
+        }
+        .primary-btn:hover { background-color: var(--primary-hover); }
+        .primary-btn:disabled { background-color: #94a3b8; cursor: not-allowed; }
+
+        .progress-log {
+            margin-top: 20px; padding: 16px; background: #f8fafc; border: 1px solid var(--border);
+            border-radius: 6px; font-family: monospace; font-size: 12px; color: var(--text-muted);
+            max-height: 250px; overflow-y: auto; display: none;
+        }
+        .progress-log p { margin: 4px 0; }
+        .success-text { color: #16a34a; font-weight: bold; }
+        .error-text { color: #dc2626; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>.docx Media Compressor</h1>
+        <p>Shrink Microsoft Word files securely in your browser by compressing embedded images.</p>
+    </div>
+
+    <div class="card">
+        <div class="input-group">
+            <label>Upload .docx File</label>
+            <!-- Added onchange event to detect file selection -->
+            <input type="file" id="docxInput" accept=".docx" onchange="handleFileSelect(event)">
+        </div>
+
+        <!-- Dynamic UI that appears after file selection -->
+        <div id="dynamicUI" style="display: none;">
+            <div class="file-info-box">
+                <p><strong>Selected File:</strong> <span id="fileNameDisplay"></span></p>
+                <p><strong>Original Size:</strong> <span class="size-badge" id="fileSizeDisplay"></span> MB</p>
+            </div>
+
+            <div class="input-group">
+                <label>Choose Compression Level: <span id="sliderValueDisplay" style="color: var(--primary);">70% Quality</span></label>
+                <div class="slider-container">
+                    <span>Smaller File</span>
+                    <input type="range" id="qualitySlider" min="10" max="100" value="70" oninput="updateSliderUI(this.value)">
+                    <span>Better Quality</span>
+                </div>
+            </div>
+        </div>
+
+        <button class="primary-btn" id="compressBtn" onclick="compressDocx()">Process & Compress Document</button>
+
+        <div class="progress-log" id="logBox"></div>
+    </div>
+</div>
+
+<script>
+    // --- UI Interactions ---
+    function handleFileSelect(event) {
+        const file = event.target.files[0];
+        const dynamicUI = document.getElementById('dynamicUI');
+        const logBox = document.getElementById('logBox');
+        
+        if (file) {
+            // Calculate size in MB
+            const sizeMB = (file.size / 1024 / 1024).toFixed(2);
+            
+            // Update UI elements
+            document.getElementById('fileNameDisplay').textContent = file.name;
+            document.getElementById('fileSizeDisplay').textContent = sizeMB;
+            
+            // Show the dynamic settings and hide old logs
+            dynamicUI.style.display = 'block';
+            logBox.style.display = 'none';
+        } else {
+            dynamicUI.style.display = 'none';
+        }
+    }
+
+    function updateSliderUI(value) {
+        document.getElementById('sliderValueDisplay').textContent = `${value}% Quality`;
+    }
+
+    function log(message, type = 'normal') {
+        const logBox = document.getElementById('logBox');
+        logBox.style.display = 'block';
+        const p = document.createElement('p');
+        p.textContent = `> ${message}`;
+        if (type === 'success') p.className = 'success-text';
+        if (type === 'error') p.className = 'error-text';
+        logBox.appendChild(p);
+        logBox.scrollTop = logBox.scrollHeight;
+    }
+
+    // --- Native HTML5 Image Compressor ---
+    async function compressImageNative(imageBlob, fileName) {
+        return new Promise((resolve, reject) => {
+            const img = new Image();
+            const blobUrl = URL.createObjectURL(imageBlob);
+            
+            // Fetch the user's slider choice (10 to 100)
+            const sliderValue = parseInt(document.getElementById('qualitySlider').value, 10);
+            
+            // Convert slider value to a decimal (0.1 to 1.0) for the JPEG encoder
+            const quality = sliderValue / 100;
+            
+            // Dynamically calculate max width based on the slider
+            // If they choose 100%, max width is large (2500px). If 10%, max width is small (800px).
+            const minWidth = 800;
+            const maxWidthRange = 2500;
+            const targetMaxWidth = Math.round(minWidth + ((maxWidthRange - minWidth) * quality));
+            
+            img.onload = () => {
+                URL.revokeObjectURL(blobUrl);
+                
+                let width = img.width;
+                let height = img.height;
+                
+                if (width > targetMaxWidth) {
+                    height = Math.round((height * targetMaxWidth) / width);
+                    width = targetMaxWidth;
+                }
+                
+                const canvas = document.createElement('canvas');
+                canvas.width = width;
+                canvas.height = height;
+                const ctx = canvas.getContext('2d');
+                
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect(0, 0, width, height);
+                ctx.drawImage(img, 0, 0, width, height);
+                
+                const ext = fileName.split('.').pop().toLowerCase();
+                const mimeType = (ext === 'png') ? 'image/png' : 'image/jpeg';
+                
+                canvas.toBlob((newBlob) => resolve(newBlob), mimeType, quality);
+            };
+            
+            img.onerror = () => reject(new Error("Image rendering failed."));
+            img.src = blobUrl;
+        });
+    }
+
+    // --- Main Document Processor ---
+    async function compressDocx() {
+        const fileInput = document.getElementById('docxInput');
+        const btn = document.getElementById('compressBtn');
+        const logBox = document.getElementById('logBox');
+        
+        if (fileInput.files.length === 0) {
+            alert('Please select a .docx file first.');
+            return;
+        }
+
+        const originalFile = fileInput.files[0];
+        btn.disabled = true;
+        btn.textContent = "Processing Document...";
+        logBox.innerHTML = ''; 
+
+        log(`Started processing: ${originalFile.name} (${(originalFile.size / 1024 / 1024).toFixed(2)} MB)`);
+        log(`Target Quality Set To: ${document.getElementById('qualitySlider').value}%`);
+
+        try {
+            const arrayBuffer = await originalFile.arrayBuffer();
+            const zip = await JSZip.loadAsync(arrayBuffer);
+            log("Successfully unpacked .docx archive.", "success");
+
+            let imageCount = 0;
+            let compressedCount = 0;
+            let totalOriginalImgSize = 0;
+            let totalNewImgSize = 0;
+
+            const files = Object.keys(zip.files);
+            
+            for (const relativePath of files) {
+                if (relativePath.startsWith('word/media/') && relativePath.match(/\.(jpeg|jpg|png)$/i)) {
+                    imageCount++;
+                    const fileObj = zip.files[relativePath];
+                    
+                    const imageBlob = await fileObj.async("blob");
+                    totalOriginalImgSize += imageBlob.size;
+                    
+                    try {
+                        const compressedBlob = await compressImageNative(imageBlob, relativePath);
+                        totalNewImgSize += compressedBlob.size;
+                        
+                        zip.file(relativePath, compressedBlob);
+                        compressedCount++;
+                    } catch (e) {
+                        log(`--> Skipped compression for ${relativePath}`, "error");
+                        totalNewImgSize += imageBlob.size; // Keep original size in tracking if it failed
+                    }
+                }
+            }
+
+            if (imageCount === 0) {
+                log("No compressible images found in this document.");
+            } else {
+                const origMB = (totalOriginalImgSize / 1024 / 1024).toFixed(2);
+                const newMB = (totalNewImgSize / 1024 / 1024).toFixed(2);
+                log(`Images Compressed: ${compressedCount}/${imageCount}`);
+                log(`Media Size Reduced: ${origMB} MB -> ${newMB} MB`, "success");
+            }
+
+            log("Repacking document...");
+            const newZipBlob = await zip.generateAsync({ type: "blob" });
+            
+            const finalSize = (newZipBlob.size / 1024 / 1024).toFixed(2);
+            log(`Compression complete. Final file size: ${finalSize} MB`, "success");
+
+            // Trigger Download
+            const downloadUrl = URL.createObjectURL(newZipBlob);
+            const link = document.createElement('a');
+            link.href = downloadUrl;
+            link.download = `Compressed_${originalFile.name}`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(downloadUrl);
+
+        } catch (error) {
+            console.error(error);
+            log(`CRITICAL ERROR: ${error.message}`, "error");
+        } finally {
+            btn.disabled = false;
+            btn.textContent = "Process & Compress Document";
+        }
+    }
+</script>
+
+</body>
+</html>
