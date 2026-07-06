@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>About Us | UBO Governance Suite</title>
+    <style>
+        body { font-family: sans-serif; line-height: 1.6; max-width: 800px; margin: 40px auto; padding: 20px; color: #334; }
+        h1 { color: #16a34a; }
+        .back-link { display: inline-block; margin-top: 40px; color: #16a34a; text-decoration: none; font-weight: bold; }
+        #content p { margin-bottom: 1.5em; }
+    </style>
+</head>
+<body>
+    <h1>About Us</h1>
+    <div id="content">Loading content...</div>
+    
+    <a href="index.html" class="back-link">← Back to Main Suite</a>
+
+    <script>
+        // Fetch the external text file
+        fetch('config/aboutus.txt')
+            .then(response => response.text())
+            .then(text => {
+                // Convert text newlines into HTML paragraphs
+                const htmlContent = text.split('\n').filter(line => line.trim() !== "").map(line => `<p>${line}</p>`).join('');
+                document.getElementById('content').innerHTML = htmlContent;
+            })
+            .catch(err => {
+                document.getElementById('content').innerText = "Could not load content.";
+                console.error(err);
+            });
+    </script>
+</body>
+</html>

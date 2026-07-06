@@ -2,33 +2,361 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>About Us | UBO Governance Suite</title>
-    <style>
-        body { font-family: sans-serif; line-height: 1.6; max-width: 800px; margin: 40px auto; padding: 20px; color: #334; }
-        h1 { color: #16a34a; }
-        .back-link { display: inline-block; margin-top: 40px; color: #16a34a; text-decoration: none; font-weight: bold; }
-        #content p { margin-bottom: 1.5em; }
-    </style>
-</head>
-<body>
-    <h1>About Us</h1>
-    <div id="content">Loading content...</div>
-    
-    <a href="index.html" class="back-link">← Back to Main Suite</a>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | KTools Hub</title>
 
-    <script>
-        // Fetch the external text file
-        fetch('config/aboutus.txt')
-            .then(response => response.text())
-            .then(text => {
-                // Convert text newlines into HTML paragraphs
-                const htmlContent = text.split('\n').filter(line => line.trim() !== "").map(line => `<p>${line}</p>`).join('');
-                document.getElementById('content').innerHTML = htmlContent;
-            })
-            .catch(err => {
-                document.getElementById('content').innerText = "Could not load content.";
-                console.error(err);
-            });
-    </script>
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <style>
+        body{
+            background:#f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color:#343a40;
+        }
+
+        .hero{
+            background:linear-gradient(135deg,#ffffff,#eef4fb);
+            padding:80px 0;
+            border-bottom:1px solid #e9ecef;
+        }
+
+        .hero h1{
+            font-size:3rem;
+            font-weight:700;
+            color:#0d2b5f;
+        }
+
+        .hero p{
+            font-size:1.2rem;
+            color:#6c757d;
+            max-width:800px;
+            margin:auto;
+        }
+
+        .section-title{
+            font-size:2rem;
+            font-weight:700;
+            color:#0d2b5f;
+            margin-bottom:20px;
+        }
+
+        .info-card{
+            border:none;
+            border-radius:15px;
+            box-shadow:0 4px 18px rgba(0,0,0,.08);
+            transition:.3s;
+            height:100%;
+        }
+
+        .info-card:hover{
+            transform:translateY(-6px);
+            box-shadow:0 10px 30px rgba(0,0,0,.12);
+        }
+
+        .icon{
+            font-size:45px;
+            color:#198754;
+            margin-bottom:20px;
+        }
+
+        .vision{
+            background:white;
+            border-radius:20px;
+            padding:50px;
+            box-shadow:0 4px 20px rgba(0,0,0,.08);
+        }
+
+        .footer-box{
+            background:#0d2b5f;
+            color:white;
+            padding:60px 40px;
+            border-radius:20px;
+        }
+
+        .footer-box h2{
+            font-weight:700;
+        }
+
+        ul li{
+            margin-bottom:10px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<!-- Hero -->
+
+<section class="hero text-center">
+    <div class="container">
+
+        <h1>About KTools Hub</h1>
+
+        <p class="mt-4">
+            Empowering businesses and professionals with free, practical,
+            and reliable online tools that simplify everyday work and
+            improve productivity.
+        </p>
+
+    </div>
+</section>
+
+
+<div class="container py-5">
+
+    <!-- About -->
+
+    <div class="row align-items-center mb-5">
+
+        <div class="col-lg-6">
+
+            <h2 class="section-title">
+                Empowering Businesses with Practical Digital Tools
+            </h2>
+
+            <p class="lead">
+                At <strong>KTools Hub</strong>, we believe professionals should spend
+                more time making decisions—not performing repetitive tasks.
+            </p>
+
+            <p>
+                Our mission is to simplify everyday business operations by
+                providing a growing collection of free, reliable, and
+                easy-to-use online utilities for business professionals,
+                analysts, finance teams, compliance officers, developers,
+                administrators, and organizations of every size.
+            </p>
+
+            <p>
+                Whether you're calculating loan schedules, processing documents,
+                managing compliance workflows, compressing files, or reconciling
+                business data, our tools are designed to help you work faster,
+                smarter, and more efficiently.
+            </p>
+
+        </div>
+
+        <div class="col-lg-6">
+
+            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=900"
+                class="img-fluid rounded-4 shadow">
+
+        </div>
+
+    </div>
+
+
+    <!-- Cards -->
+
+    <div class="row g-4">
+
+        <div class="col-md-4">
+
+            <div class="card info-card p-4">
+
+                <i class="fa-solid fa-bullseye icon"></i>
+
+                <h4>Our Mission</h4>
+
+                <p>
+                    To provide high-quality, browser-based business tools that
+                    eliminate manual work, improve efficiency, and remain
+                    completely free for everyone.
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-4">
+
+            <div class="card info-card p-4">
+
+                <i class="fa-solid fa-lightbulb icon"></i>
+
+                <h4>Why KTools Hub?</h4>
+
+                <ul>
+
+                    <li>100% Free Online Utilities</li>
+
+                    <li>No Software Installation</li>
+
+                    <li>Fast & Secure</li>
+
+                    <li>Easy-to-use Interface</li>
+
+                    <li>Built for Real Business Needs</li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-4">
+
+            <div class="card info-card p-4">
+
+                <i class="fa-solid fa-briefcase icon"></i>
+
+                <h4>Who We Serve</h4>
+
+                <ul>
+
+                    <li>Business Professionals</li>
+
+                    <li>Banking & Finance</li>
+
+                    <li>Compliance Teams</li>
+
+                    <li>HR & Operations</li>
+
+                    <li>Developers</li>
+
+                    <li>Consultants & SMEs</li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- What We Offer -->
+
+    <section class="my-5">
+
+        <h2 class="section-title text-center mb-5">
+
+            What We Offer
+
+        </h2>
+
+        <div class="row g-4">
+
+            <div class="col-md-6">
+
+                <div class="card info-card p-4">
+
+                    <h4 class="mb-3">
+
+                        Business Productivity Tools
+
+                    </h4>
+
+                    <ul>
+
+                        <li>Business & Compliance Solutions</li>
+                        <li>Financial Calculators</li>
+                        <li>Loan Amortization</li>
+                        <li>Document Utilities</li>
+                        <li>PDF Processing</li>
+                        <li>Image Optimization</li>
+                        <li>Data Processing & Reconciliation</li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-6">
+
+                <div class="card info-card p-4">
+
+                    <h4 class="mb-3">
+
+                        Our Commitment
+
+                    </h4>
+
+                    <ul>
+
+                        <li>Accurate & Reliable Results</li>
+                        <li>Privacy-Focused Processing</li>
+                        <li>Fast Performance</li>
+                        <li>Accessible Anywhere</li>
+                        <li>Continuous Improvement</li>
+                        <li>Professional User Experience</li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Vision -->
+
+    <section class="vision my-5">
+
+        <div class="text-center">
+
+            <i class="fa-solid fa-earth-americas icon"></i>
+
+            <h2 class="section-title">
+
+                Our Vision
+
+            </h2>
+
+            <p class="lead">
+
+                To become a trusted global platform that empowers professionals
+                with practical digital tools that simplify daily work,
+                increase productivity, and improve business efficiency—
+                completely free and accessible to everyone.
+
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- CTA -->
+
+    <section class="footer-box text-center mt-5">
+
+        <h2>Join Our Journey</h2>
+
+        <p class="mt-3">
+
+            We're continuously expanding our collection of business utilities.
+            Every new tool is designed to solve real-world challenges and help
+            professionals work smarter.
+
+        </p>
+
+        <h4 class="mt-4">
+
+            KTools Hub
+
+        </h4>
+
+        <p class="mb-0">
+
+            <strong>Unified Business Utilities.</strong><br>
+            Smarter Work. Better Productivity.
+
+        </p>
+
+    </section>
+
+</div>
+
 </body>
 </html>
