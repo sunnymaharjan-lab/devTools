@@ -12,12 +12,18 @@
      crossorigin="anonymous"></script>
     
 </head>
-<body class="bg-gray-50 text-gray-900 font-sans">
+<body class="bg-gray-100 text-gray-900 font-sans">
+
 
     <!-- Navigation Bar -->
     <nav class="bg-white shadow-sm sticky top-0 z-50">
         <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
-            <h1 class="text-xl font-bold text-blue-600">KTools Hub</h1>
+            
+            <!-- Dynamic Brand Container -->
+            <div id="brand-container" class="flex items-center space-x-3 cursor-pointer">
+                <!-- JS will inject the logo and title here -->
+            </div>
+
             <div id="nav-container" class="flex space-x-6">
                 <!-- Links injected by JavaScript -->
             </div>
@@ -67,6 +73,24 @@
                 const response = await fetch('config/config.json');
                 const data = await response.json();
 
+                // Render Brand (Logo & Title)
+                const brandContainer = document.getElementById('brand-container');
+                if (data.siteInfo) {
+                    let brandHtml = '';
+                    // Add logo if URL exists in config
+                    if (data.siteInfo.logoUrl) {
+                        brandHtml += `<img src="${data.siteInfo.logoUrl}" alt="Site Logo" class="h-14 w-22 object-contain">`;
+                    }
+                    // Add title text
+                    if (data.siteInfo.title) {
+                        brandHtml += `<h1 class="text-xl font-bold text-blue-600">${data.siteInfo.title}</h1>`;
+                    }
+                    brandContainer.innerHTML = brandHtml;
+                    
+                    // Optional: Make clicking the logo refresh/go home
+                    brandContainer.onclick = () => window.location.href = '/';
+                }                
+
                 // Render Navigation
                 const navContainer = document.getElementById('nav-container');
 
@@ -115,11 +139,11 @@
                         duration-300 hover:shadow-xl 
                         hover:-translate-y-2 hover:scale-[1.02]`;
                     card.innerHTML = `
-                        <div class="mb-4 text-blue-600">
-                            <i data-lucide="${tool.icon}" class="w-10 h-10"></i>
+                        <div class="mb-4 text-green-600">
+                            <i data-lucide="${tool.icon}" class="w-8 h-8"></i>
                         </div>
-                        <h3 class="text-xl font-bold mb-2 text-blue-700">${tool.title}</h3>
-                        <p class="text-gray-600">${tool.description}</p>
+                        <h3 class="text-2xl mb-2 text-blue-700">${tool.title}</h3>
+                        <p class=" text-sm text-gray-600">${tool.description}</p>
                     `;
                     grid.appendChild(card);
                 });

@@ -1,4 +1,9 @@
 {
+"siteInfo": {
+    "title": "",
+    "logoUrl": "assets/logo.png"
+  },
+
   "navItems": [
     { "name": "Home", "url": "index.html" },
     { "name": "Utilities", "children": [
@@ -6,7 +11,8 @@
         { "name": "Loan Amortization", "url": "amortization.html" },
         { "name": "Image Compressor", "url": "image-compressor.html" },
         { "name": "Docx Compressor", "url": "docx-compressor.html" },
-        { "name": "PDF Merger/Splitter", "url": "pdf-processor.html" }
+        { "name": "PDF Merger/Splitter", "url": "pdf-processor.html" },
+        { "name": "Data Merger", "url": "data-merger.html" }     
 
     ]},
     {"name":  "About Us", "url": "about.html"}
@@ -23,7 +29,7 @@
     "disclaimer": "Disclaimer: These tools are for educational and informational purposes. Consult a professional for financial decisions.",
     "links": [
       { "name": "About Us", "url": "about.html" },
-      { "name": "Contact Us", "url": "contact.html" }
+      { "name": "Email: utils@kventure.org", "url": "" }
     ]
   },
 
@@ -32,13 +38,13 @@
       "title": "Enterprise UBO Governance Suite",
       "description": "Calculate ultimate beneficial owners for companies with complex cross-holding structures.",
       "link": "ubo.html",
-      "icon": "building-2"
+      "icon": "activity"
     },
     {
-      "title": "Loan Amortization Dashboard",
+      "title": "Loan Amortization",
       "description": "Generate dynamic loan schedules with scenario-based what-if analysis.",
       "link": "amortization.html",
-      "icon": "trending-up"
+      "icon": "landmark"
     },
     {
       "title": "Image Compressor",
@@ -57,6 +63,12 @@
       "description": "Merge multiple PDF files into one or split a PDF into separate pages.",
       "link": "pdf-processor.html",
       "icon": "file"
+    },
+    {
+      "title": "Data Merger",
+      "description": "Merge data from different list for data reconcilation.",
+      "link": "data-merger.html",
+      "icon": "merge"
     }
   ]
 }
