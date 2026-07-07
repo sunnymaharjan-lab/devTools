@@ -83,7 +83,7 @@
       "title": "Project Visualizer",
       "description": "Visualize project progress and status",
       "link": "project-visualizer.html",
-      "icon": "fa-mosaic fa-solid fa-chart-simple"
+      "icon": "fa-mosaic fa-solid fa-chart-simple fa-2x"
     }      
   ]
 }
