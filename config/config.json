@@ -78,6 +78,12 @@
       "description": "Merge data from different list for data reconcilation.",
       "link": "data-merger.html",
       "icon": "fa-solid fa-code-merge fa-2x"
-    }
+    },
+    {
+      "title": "Project Visualizer",
+      "description": "Visualize project progress and status",
+      "link": "project-visualizer.html",
+      "icon": "fa-mosaic fa-solid fa-chart-simple"
+    }      
   ]
 }
