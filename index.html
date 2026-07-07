@@ -7,6 +7,7 @@
     <!-- Using Tailwind CSS via CDN for rapid development -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5908583357149326"
      crossorigin="anonymous"></script>
@@ -111,7 +112,16 @@
                         
                         item.children.forEach(child => {
                             // Dropdown links open in a new tab
-                            dropdownContent.innerHTML += `<a href="${child.url}" target="_blank" rel="noopener noreferrer" class="block px-4 py-2 hover:bg-gray-100 hover:text-blue-600">${child.name}</a>`;
+                            dropdownContent.innerHTML += 
+                                `<a href="${child.url}" 
+                                    target="_blank" 
+                                    rel="noopener noreferrer" 
+                                    class="block px-4 py-2 
+                                        hover:bg-gray-100 
+                                        hover:text-blue-600"
+                                >
+                                    ${child.name}
+                                </a>`;
                         });
                         
                         dropdown.appendChild(dropdownContent);
@@ -119,7 +129,13 @@
                     } else {
                         // Logic for Standard Link (Home, About Us)
                         // These open in the same window
-                        navItem.innerHTML = `<a href="${item.url}" class="block">${item.name}</a>`;
+                        navItem.innerHTML = 
+                            `<a href="${item.url}" 
+                                class="block"
+                                target="_blank"
+                            >
+                                ${item.name}
+                            </a>`;
                     }
                     
                     navContainer.appendChild(navItem);
@@ -140,14 +156,13 @@
                         hover:-translate-y-2 hover:scale-[1.02]`;
                     card.innerHTML = `
                         <div class="mb-4 text-green-600">
-                            <i data-lucide="${tool.icon}" class="w-8 h-8"></i>
+                            <i class="${tool.icon}"></i>
                         </div>
                         <h3 class="text-2xl mb-2 text-blue-700">${tool.title}</h3>
                         <p class=" text-sm text-gray-600">${tool.description}</p>
                     `;
                     grid.appendChild(card);
-                });
-                lucide.createIcons();
+                });                
 
                 // Render Footer
                 const disclaimer = document.getElementById('disclaimer-text');
@@ -168,11 +183,18 @@
                         a.innerText = link.name;
                         a.target = "_blank";
                         a.rel = "noopener noreferrer";
+
+                        a.innerHTML = `
+                          <i class="${link.icon}"></i>
+                            <span>${link.name}</span>
+                        `;
+
                         footerLinksContainer.appendChild(a);
 
                         // Add separator | if not the last item
                         if (index < data.footer.links.length - 1) {
                             const span = document.createElement('span');
+                            span.className = "mx-2"; // Added margin for spacing
                             span.innerText = "|";
                             footerLinksContainer.appendChild(span);
                         }

@@ -5,7 +5,6 @@
   },
 
   "navItems": [
-    { "name": "Home", "url": "index.html" },
     { "name": "Utilities", "children": [
         { "name": "UBO Suite", "url": "ubo.html" },
         { "name": "Loan Amortization", "url": "amortization.html" },
@@ -26,10 +25,19 @@
   ],
 
   "footer": {
-    "disclaimer": "Disclaimer: These tools are for educational and informational purposes. Consult a professional for financial decisions.",
+    "disclaimer": 
+      "Disclaimer: These tools are for educational and informational purposes. Consult a professional for financial decisions.",
     "links": [
-      { "name": "About Us", "url": "about.html" },
-      { "name": "Email: utils@kventure.org", "url": "" }
+      { 
+        "name": "About Us", 
+        "url": "about.html", 
+        "icon": "fa-mosaic fa-solid fa-circle-info"     
+      },
+      { 
+        "name": "Email: utils@kventure.org", 
+        "url": "", 
+        "icon": "fa-mosaic fa-solid fa-inbox"
+      }
     ]
   },
 
@@ -38,37 +46,37 @@
       "title": "Enterprise UBO Governance Suite",
       "description": "Calculate ultimate beneficial owners for companies with complex cross-holding structures.",
       "link": "ubo.html",
-      "icon": "activity"
+      "icon": "fa-solid fa-sitemap fa-2x"
     },
     {
       "title": "Loan Amortization",
       "description": "Generate dynamic loan schedules with scenario-based what-if analysis.",
       "link": "amortization.html",
-      "icon": "landmark"
+      "icon": "fa-solid fa-landmark fa-2x"
     },
     {
       "title": "Image Compressor",
       "description": "Compress images to reduce file size while maintaining quality.",
       "link": "image-compressor.html",
-      "icon": "image"
+      "icon": "fa-solid fa-compress fa-2x"
     },
     {
       "title": "Docx Compressor",
       "description": "Reduce the size of DOCX files for easier sharing and storage.",
       "link": "docx-compressor.html",
-      "icon": "file-text"
+      "icon": "fa-solid fa-file-word fa-2x"
     },
     {
       "title": "PDF Merger/Splitter",
       "description": "Merge multiple PDF files into one or split a PDF into separate pages.",
       "link": "pdf-processor.html",
-      "icon": "file"
+      "icon": "fa-solid fa-file-pdf fa-2x"
     },
     {
       "title": "Data Merger",
       "description": "Merge data from different list for data reconcilation.",
       "link": "data-merger.html",
-      "icon": "merge"
+      "icon": "fa-solid fa-code-merge fa-2x"
     }
   ]
 }
