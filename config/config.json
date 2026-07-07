@@ -11,7 +11,8 @@
         { "name": "Image Compressor", "url": "image-compressor.html" },
         { "name": "Docx Compressor", "url": "docx-compressor.html" },
         { "name": "PDF Merger/Splitter", "url": "pdf-processor.html" },
-        { "name": "Data Merger", "url": "data-merger.html" }     
+        { "name": "Data Merger", "url": "data-merger.html" },
+        { "name": "Project Visualizer", "url": "project-visualizer.html" }
 
     ]},
     {"name":  "About Us", "url": "about.html"}
