@@ -88,7 +88,7 @@
     },
     {
       "title": "Data Splitter",
-      "description": "Split master file into multiple files",
+      "description": "Split large Excel or CSV files into multiple files based on dynamic column rules",
       "link": "data-splitter.html",
       "icon": "fa-mosaic fa-solid fa-scissors fa-2x"        
     }
