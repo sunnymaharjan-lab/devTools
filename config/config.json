@@ -88,7 +88,7 @@
     },
     {
       "title": "Data Splitter",
-      "description": "Visualize project progress and status",
+      "description": "Split master file into multiple files",
       "link": "data-splitter.html",
       "icon": "fa-mosaic fa-solid fa-scissors fa-2x"        
     }
