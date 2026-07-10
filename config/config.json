@@ -12,7 +12,8 @@
         { "name": "Docx Compressor", "url": "docx-compressor.html" },
         { "name": "PDF Merger/Splitter", "url": "pdf-processor.html" },
         { "name": "Data Merger", "url": "data-merger.html" },
-        { "name": "Project Visualizer", "url": "project-visualizer.html" }
+        { "name": "Project Visualizer", "url": "project-visualizer.html" },
+        { "name": "Data Splitter", "url": "data-splitter.html" }
 
     ]},
     {"name":  "About Us", "url": "about.html"}
@@ -84,6 +85,12 @@
       "description": "Visualize project progress and status",
       "link": "project-visualizer.html",
       "icon": "fa-mosaic fa-solid fa-chart-simple fa-2x"
-    }      
+    },
+    {
+      "title": "Data Splitter",
+      "description": "Visualize project progress and status",
+      "link": "data-splitter.html",
+      "icon": "fa-mosaic fa-solid fa-scissors"        
+    }
   ]
 }
